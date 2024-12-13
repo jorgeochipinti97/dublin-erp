@@ -1,3 +1,8 @@
+import Depot from "@/models/Depot";
+import Movement from "@/models/Movement";
+import Order from "@/models/Order";
+import Store from "@/models/Store";
+
 export default async function handler(req, res) {
   if (req.method !== "PUT") {
     return res.status(405).json({ error: "Método no permitido" });
