@@ -117,9 +117,6 @@ const Page = () => {
     }
   };
 
-  if (!session) {
-    return <p>Debe iniciar sesión para crear usuarios.</p>;
-  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
