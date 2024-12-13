@@ -83,7 +83,6 @@ export function AppSidebar() {
     });
   };
 
-
   // Manejar sesión
   const handleGetSession = async () => {
     try {
@@ -120,32 +119,32 @@ export function AppSidebar() {
       <SidebarContent>
         {/* Grupo Principal */}
         <div className="flex justify-center mt-5">
-          <img src="/logo-04.jpg" className="rounded-xl w-6/12" alt="Logo" />
+          <img src="/Logo-04.jpg" className="rounded-xl w-6/12" alt="Logo" />
         </div>
-        <SidebarGroup>
-          <SidebarGroupLabel>Selecciona tu tienda</SidebarGroupLabel>
-          <Select onValueChange={handleStoreSelect}>
-            <SelectTrigger>
-              <SelectValue placeholder="Elige una tienda" />
-            </SelectTrigger>
-            <SelectContent>
-              {stores.map((store) => (
-                <SelectItem key={store._id} value={store._id}>
-                  {store.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {selectedStore && (
-            <SidebarGroupLabel>
-              Trabajando con la tienda: {selectedStore.name}
-            </SidebarGroupLabel>
-          )}
-        </SidebarGroup>
 
         {/* Menú de Administrador */}
         {session?.user?.role.toLowerCase() === "client" && (
           <SidebarGroup>
+            <SidebarGroup>
+              <SidebarGroupLabel>Selecciona tu tienda</SidebarGroupLabel>
+              <Select onValueChange={handleStoreSelect}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Elige una tienda" />
+                </SelectTrigger>
+                <SelectContent>
+                  {stores.map((store) => (
+                    <SelectItem key={store._id} value={store._id}>
+                      {store.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {selectedStore && (
+                <SidebarGroupLabel>
+                  Trabajando con la tienda: {selectedStore.name}
+                </SidebarGroupLabel>
+              )}
+            </SidebarGroup>
             <SidebarGroupLabel>Admin</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>

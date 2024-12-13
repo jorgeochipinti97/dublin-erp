@@ -51,7 +51,7 @@ export default function Login() {
   return (
     <div className="">
       <div className="h-screen flex w-12/12 flex-col  justify-center items-center">
-        <img src="/logo-02.jpg" className="rounded-xl w-8/12 md:w-3/12 mb-5" />
+        <img src="/Logo-02.jpg" className="rounded-xl w-8/12 md:w-3/12 mb-5" />
 
         <Card className="w-10/12 md:w-5/12">
           <CardContent>
