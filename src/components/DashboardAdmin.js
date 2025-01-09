@@ -91,6 +91,8 @@ export const DashboardAdmin = () => {
   return (
     <div className="md:max-w-[70vw] p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
+
+
         {ordersStats && (
           <motion.div
             className="shadow-lg bg-blue-50 p-6 border border-blue-300 rounded-lg"

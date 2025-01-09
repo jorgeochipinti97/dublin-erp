@@ -95,9 +95,7 @@ const StoresPage = () => {
     }
   };
 
-  if (!session) {
-    return <p>Debe iniciar sesión para gestionar tiendas.</p>;
-  }
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4">

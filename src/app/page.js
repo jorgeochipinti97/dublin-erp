@@ -9,12 +9,14 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const { push } = useRouter();
   const [isclient, setIsClient] = useState(null);
+
   const fetchSession = async () => {
     const session = await getSession();
-    session.user.role == "client" && setIsClient(true);
+
     if (!session) {
       push("/login");
     }
+    session && session.user.role == "client" && setIsClient(true);
   };
 
   useEffect(() => {
