@@ -321,18 +321,30 @@ const Page = () => {
     let parsedData;
 
     try {
+      // Intentar parsear el mensaje como JSON
       parsedData = JSON.parse(message);
     } catch (error) {
       toast({
         title: "Código QR inválido",
-        description: "El código escaneado no contiene una orden válida.",
+        description: "El código escaneado no es un JSON válido.",
         variant: "destructive",
       });
       return;
     }
 
-    const id = message;
+    // Extraer el id del JSON
+    const id = parsedData?.id;
 
+    if (!id) {
+      toast({
+        title: "ID no encontrado",
+        description: "El código escaneado no contiene un ID válido.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validar si ya hay una orden cargada
     if (order != null) {
       toast({
         title: "Debes terminar o cambiar la orden actual",
@@ -347,7 +359,6 @@ const Page = () => {
         const dbResponse = await axios.get(
           `/api/database/orders/tiendanubeId/${id}`
         );
-
         if (dbResponse.status === 200 && dbResponse.data) {
           if (dbResponse.data.message === "Orden aún no procesada") {
             // Proceder a buscar en Tiendanube si la orden aún no ha sido procesada
@@ -360,7 +371,6 @@ const Page = () => {
             return;
           }
         }
-
         // Si no está en la base de datos, buscar en Tiendanube
         const response = await axios.get(`/api/ordernuve?id=${id}`, {
           params: {
@@ -368,10 +378,8 @@ const Page = () => {
             accessToken: selectedStore?.accessToken,
           },
         });
-
         if (response.status === 200 && response.data) {
           const orderFromApi = response.data.data;
-
           if (orderFromApi.payment_status !== "paid") {
             toast({
               title: "Pago no aprobado",
@@ -381,7 +389,6 @@ const Page = () => {
             });
             return;
           }
-
           if (orderFromApi.status === "PICKING") {
             toast({
               title: "La orden ya está en estado PICKING",
@@ -389,7 +396,6 @@ const Page = () => {
             });
             return;
           }
-
           if (orderFromApi.status === "DESPACHADA") {
             toast({
               title: "La orden ya ha sido despachada",
@@ -397,13 +403,13 @@ const Page = () => {
             });
             return;
           }
-
           setOrder(orderFromApi);
           toast({ title: "Orden cargada con éxito" });
         }
       }
     } catch (err) {
       console.error("Error en getOrder:", err);
+
       toast({
         title: "Algo salió mal",
         description: "Revisa la tienda",

@@ -18,6 +18,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: "Missing order ID" });
   }
 
+
+console.log(storeId, id)
+
   const url = `https://api.tiendanube.com/v1/${storeId}/orders/${id}`;
   const headers = {
     Authentication: `bearer ${accessToken}`,
